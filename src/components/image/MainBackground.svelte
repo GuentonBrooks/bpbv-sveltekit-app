@@ -1,6 +1,6 @@
 <style>
   .scoped-parallax {
-    background-image: url("img/bpbv.jpeg");
+    background-image: url("/bpbv.jpeg");
   }
 </style>
 

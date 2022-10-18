@@ -1,5 +1,5 @@
 <script>
-  let src = '/img/apple-weigth.jpg';
+  let src = '/apple-weigth.jpg';
 </script>
 
 <img {src} alt="apple with weight measurer" />

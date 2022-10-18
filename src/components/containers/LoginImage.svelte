@@ -7,7 +7,7 @@
 
 <style>
   .scoped-container {
-    background-image: url("img/apple-weight.jpg");
+    background-image: url("/apple-weight.jpg");
   }
 </style>
 
