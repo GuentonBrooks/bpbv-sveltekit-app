@@ -1,5 +1,5 @@
 <script>
-  let src = '/img/GuenTon-transparent.png';
+  let src = '/GuenTon-transparent.png';
 </script>
 
 <img {src} alt="GuenTon Logo" />
