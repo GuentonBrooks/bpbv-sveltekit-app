@@ -1,7 +1,15 @@
 {
 	"name": "bpbv-sveltekit-app",
-	"version": "0.0.1",
+	"version": "0.0.2",
+  "previousVersion": "0.0.1",
+  "author": "Guenton Brooks",
+  "description": "Bet pa Baha Vet Sveltekit App",
+  "license": "MIT",
 	"private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GuentonBrooks/bpbv-sveltekit-app"
+  },
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -9,6 +17,10 @@
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write ."
 	},
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
+  },
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
