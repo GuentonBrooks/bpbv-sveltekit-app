@@ -1,9 +1,9 @@
 <script>
-  import LoginImage from "./LoginImage.svelte"
-  import LoginContent from "./LoginContent.svelte"
+  import LoginImage from "../image/LoginImage.svelte"
+  import LoginForm from "../forms/LoginForm.svelte"
 </script>
 
-<div class="flex flex-col-reverse md:flex-row container h-full">
+<div class="grid grid-cols-1 md:grid-cols-2 h-screen -mb-10 pb-10">
   <LoginImage />
-  <LoginContent />
+  <LoginForm />
 </div>
