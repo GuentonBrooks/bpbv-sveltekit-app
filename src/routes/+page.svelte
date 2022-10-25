@@ -3,6 +3,8 @@
   import BottomBar from "../components/containers/BottomBar.svelte";
 
   import Login from "../components/containers/Login.svelte";
+
+  export let data;
 </script>
 
 <MainBackground />

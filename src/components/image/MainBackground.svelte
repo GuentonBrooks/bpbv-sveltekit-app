@@ -4,14 +4,12 @@
   }
 </style>
 
-<div class="h-2/4
-  bg-cover
-  bg-scroll 
-  bg-no-repeat 
-  bg-top
+<div class="h-full
+  bg-contain
+  bg-center
+  bg-no-repeat
   md:bg-fixed 
   md:bg-cover
-  md:bg-center
-  md:h-full
+  bg-primary
   scoped-parallax" 
 />
