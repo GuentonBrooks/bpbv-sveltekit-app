@@ -17,11 +17,11 @@
   font-size: 19px !important;
   color: #000000 !important;
   }
-  [data-custom-class='heading_2'], [data-custom-class='heading_2'] * {
+  /* [data-custom-class='heading_2'], [data-custom-class='heading_2'] * {
   font-family: Arial !important;
   font-size: 17px !important;
   color: #000000 !important;
-  }
+  } */
   [data-custom-class='body_text'], [data-custom-class='body_text'] * {
   color: #595959 !important;
   font-size: 14px !important;
