@@ -1,7 +1,7 @@
 {
 	"name": "bpbv-sveltekit-app",
-	"version": "0.0.2",
-	"previousVersion": "0.0.1",
+	"version": "0.1.0",
+	"previousVersion": "0.0.2",
 	"author": "Guenton Brooks",
 	"description": "Bet pa Baha Vet Sveltekit App",
 	"license": "MIT",
