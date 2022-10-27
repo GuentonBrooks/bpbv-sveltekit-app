@@ -1,3 +1,5 @@
-<div>
-  <h1>This is the Home Page</h1>
-</div>
+<script>
+  import TopBar from "../../components/containers/TopBar.svelte"
+</script>
+
+<TopBar />
