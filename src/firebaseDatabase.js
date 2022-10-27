@@ -9,6 +9,7 @@ const paths = () => ({
 
 // Database Refferences
 const refs = () => ({
+  users: ref(db, paths().users),
   currentUserInfo: ref(db, paths().currentUser),
 });
 
@@ -44,6 +45,17 @@ const fetchCurrentUserInfoAsync = () => (
     .catch((err) => { throw err })
 );
 
+const fetchAllUsersAsync = () => (
+  get(refs().users)
+    .then((snapshot) => {
+      const array = [];
+      const users = snapshot.val();
+      for (const key in users) array.push(users[key]);
+      return array;
+    })
+    .catch((err) => { throw err })
+);
+
 export {
   getCurrentUserId,
   getCurrentUserEmail,
@@ -52,4 +64,5 @@ export {
   getCurrentUserInfo,
   storeCurrentUserInfoAsync,
   fetchCurrentUserInfoAsync,
+  fetchAllUsersAsync,
 }

@@ -9,6 +9,7 @@
 
   userState.subscribe((user) => {
     if (user) {
+      console.log(`Checking if ${user.email} exists in database...`);
       fetchCurrentUserInfoAsync()
         .then(() => { goto('/home') })
         .catch((err) => console.error(err))

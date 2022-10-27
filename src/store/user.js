@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store'
 
 const userState = writable(null);
+const dbUsersState = writable(null);
 
-export { userState };
+export { userState, dbUsersState };
