@@ -24,26 +24,6 @@
 </script>
 
 <tbody class="text-sm divide-y divide-gray-100">
-
-  <tr>
-      <td class="p-2 whitespace-nowrap">
-          <div class="flex items-center">
-              <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img class="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-08.jpg" width="40" height="40" alt="Olga Semklo"></div>
-              <div class="font-medium text-gray-800">Olga Semklo</div>
-          </div>
-      </td>
-      <td class="p-2 whitespace-nowrap">
-          <div class="text-left">olga.s@cool.design</div>
-      </td>
-      <td class="p-2 whitespace-nowrap">
-          <div class="text-left font-medium text-green-500">$1,220.66</div>
-      </td>
-      <td class="p-2 whitespace-nowrap">
-          <div class="text-lg text-center">??</div>
-      </td>
-  </tr>
-  <tr>
-
   {#each firstScans as scan (scan.uid)}
   <tr>
 		<td class="p-2 whitespace-nowrap">
