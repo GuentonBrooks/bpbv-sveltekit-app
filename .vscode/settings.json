@@ -1,4 +1,8 @@
 {
+  "editor.formatOnType": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "workbench.iconTheme": "material-icon-theme",
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#ff6433",
     "activityBar.background": "#ff6433",

@@ -1,6 +1,6 @@
 <script>
   import BpbvPrimaryTransparent from "../../components/image/BpbvPrimaryTransparent.svelte"
-	import { googleSignOutAsync } from "../../firebaseInstance";
+	import { googleSignOutAsync } from "../../firebase/auth";
   import { goto } from '$app/navigation'; 
 	import { userState } from "../../store/user";
 

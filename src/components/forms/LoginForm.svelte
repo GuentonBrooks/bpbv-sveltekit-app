@@ -1,5 +1,5 @@
 <script>
-  import { googleSignIn } from "../../firebaseInstance";
+  import { googleSignIn } from "../../firebase/auth";
 
   import GoogleSignInLogo from "../image/GoogleSignInLogo.svelte"
   import BpbvBannerTransparent from "../image/BpbvBannerTransparent.svelte"

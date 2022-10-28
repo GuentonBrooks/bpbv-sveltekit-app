@@ -1,7 +1,10 @@
 {
 	"useTabs": true,
+	"bracketSpacing": true,
 	"singleQuote": true,
-	"trailingComma": "none",
+	"arrowParens": "always",
+	"trailingComma": "all",
+	"jsxBracketSameLine": true,
 	"printWidth": 100,
 	"plugins": ["prettier-plugin-svelte"],
 	"pluginSearchDirs": ["."],

@@ -1,6 +1,6 @@
 <script>
-	import BpbvTableBody from "../containers/BpbvTableBody.svelte";
-  import BpbvTableHead from "../containers/BpbvTableHead.svelte";
+	import BpbvTableBody from "../tables/BpbvTableBody.svelte";
+  import BpbvTableHead from "../tables/BpbvTableHead.svelte";
 </script>
 
 <section class="antialiased bg-gray-100 text-gray-600 h-screen px-4">

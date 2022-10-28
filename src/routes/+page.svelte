@@ -1,7 +1,7 @@
 <script>
   import { goto } from '$app/navigation'; 
   import { userState } from '../store/user'
-  import { fetchCurrentUserInfoAsync } from '../firebaseDatabase';
+  import { fetchCurrentUserInfoAsync } from '../firebase/users';
 
   import MainBackground from "../components/image/MainBackground.svelte";
   import Login from "../components/containers/Login.svelte";
@@ -9,7 +9,7 @@
 
   userState.subscribe((user) => {
     if (user) {
-      console.log(`Checking if ${user.email} exists in database...`);
+      console.log('Checking if User exists in database...')
       fetchCurrentUserInfoAsync()
         .then(() => { goto('/home') })
         .catch((err) => console.error(err))
