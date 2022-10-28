@@ -15,8 +15,6 @@
   userState.subscribe((currentUserState) => user = currentUserState);
   currentUserFirstScanState.subscribe((scanState) => currentUserFirstScan = scanState);
   firstScansState.subscribe((scansState) => firstScans = scansState);
-
-  console.log(currentUserFirstScan);
   
   onMount(() => {
     if (!user) return goto('/');

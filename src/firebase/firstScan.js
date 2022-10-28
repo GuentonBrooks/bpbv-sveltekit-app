@@ -22,7 +22,7 @@ const scanModel = () => ({
 	email: getCurrentUserInfo().email,
 	age: null,
 	sex: null,
-	length: null,
+	len: null,
 	weight: null,
 	bmi: null,
 	bodyFatPercent: null,
@@ -89,6 +89,7 @@ const fetchAllUserFirstScansAsync = () =>
 export {
 	scanModel,
 	initCurrentUserFirstScanAsync,
+	storeCurrentUserFirstScanAsync,
 	storeFirstScanByUidAsync,
 	fetchAllUserFirstScansAsync,
 };
