@@ -44,8 +44,10 @@
     <td class="p-2 whitespace-nowrap">
       {#if scan.age}
         <div class="text-left">{scan.age}</div>
+      {:else if scan.uid === uid}
+        <input type="text" name="age" class="w-12 text-lg text-left" placeholder="??" bind:value={age}>
       {:else}
-        <input type="text" name="age" class="w-12 text-lg text-left" placeholder="?" bind:value={age}>
+        <div class="text-left">?</div>
       {/if}
     </td>
 
@@ -56,8 +58,10 @@
         <div class="w-12 text-lg text-center font-medium text-pink-500">F</div>
       {:else if scan.sex && scan.sex.startsWith("M")}
         <div class="w-12 text-lg text-center font-medium text-blue-500">M</div>
+      {:else if scan.uid === uid}
+        <input type="text" name="age" class="w-12 hover:border-primary text-lg text-center" placeholder={scan.sex || "?"} bind:value={sex}>
       {:else}
-        <input type="text" name="age" class="w-12 hover:border-primary text-lg text-center" placeholder="?" bind:value={sex}>
+        <div class="w-12 text-lg text-center font-medium text-grey-500">?</div>
       {/if}
     </td>
 
