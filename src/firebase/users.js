@@ -1,6 +1,8 @@
 import { db } from './app';
-import { ref, set, get } from 'firebase/database';
+import { ref, set, get, onValue } from 'firebase/database';
 import { getCurrentUserId, getCurrentUserInfo } from './auth';
+
+import { allUsersState } from '../store/user';
 
 // Document Paths
 const paths = () => ({
@@ -42,16 +44,12 @@ const fetchCurrentUserInfoAsync = () =>
 			throw err;
 		});
 
-const fetchAllUsersAsync = () =>
-	get(refs().users)
-		.then((snapshot) => {
-			const array = [];
-			const users = snapshot.val();
-			for (const key in users) array.push(users[key]);
-			return array;
-		})
-		.catch((err) => {
-			throw err;
-		});
+const fetchAllUsers = () =>
+	onValue(refs().users, (snapshot) => {
+		const array = [];
+		const users = snapshot.val();
+		for (const key in users) array.push(users[key]);
+		allUsersState.set(array);
+	});
 
-export { storeCurrentUserInfoAsync, fetchCurrentUserInfoAsync, fetchAllUsersAsync };
+export { storeCurrentUserInfoAsync, fetchCurrentUserInfoAsync, fetchAllUsers };

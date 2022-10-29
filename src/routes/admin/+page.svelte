@@ -1,7 +1,7 @@
 <script>
   import TopBar from "../../components/containers/TopBar.svelte"
-	import BpbvTable from "../../components/forms/BpbvTable.svelte";
+	import FirstScanForm from "../../components/forms/FirstScanForm.svelte";
 </script>
 
 <TopBar />
-<BpbvTable />
+<FirstScanForm />

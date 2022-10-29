@@ -50,12 +50,14 @@
     </td>
 
     <td class="p-2 whitespace-nowrap">
-      {#if scan.sex === "F"}
-        <div class="w-12 text-lg text-center font-medium text-green-500">{scan.sex}</div>
-      {:else if scan.sex === "M"}
-        <div class="w-12 text-lg text-center font-medium text-blue-500">{scan.sex}</div>
+      {#if scan.sex && scan.sex.startsWith("F")}
+        <div class="w-12 text-lg text-center font-medium text-pink-500">F</div>
+      {:else if scan.sex && scan.sex.startsWith("F")}
+        <div class="w-12 text-lg text-center font-medium text-pink-500">F</div>
+      {:else if scan.sex && scan.sex.startsWith("M")}
+        <div class="w-12 text-lg text-center font-medium text-blue-500">M</div>
       {:else}
-        <input type="text" name="age" class="w-12 hover:border-primary text-lg text-center" placeholder="?" bindValue={sex}>
+        <input type="text" name="age" class="w-12 hover:border-primary text-lg text-center" placeholder="?" bind:value={sex}>
       {/if}
     </td>
 
