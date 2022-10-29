@@ -2,7 +2,7 @@ import { db } from './app';
 import { ref, set, get, onValue } from 'firebase/database';
 import { getCurrentUserId, getCurrentUserInfo } from './auth';
 
-import { allUsersState } from '../store/user';
+import { allUsersState, currentUserState } from '../store/user';
 
 // Document Paths
 const paths = () => ({
@@ -13,36 +13,20 @@ const paths = () => ({
 // Refferences
 const refs = () => ({
 	users: ref(db, paths().users),
-	currentUserInfo: ref(db, paths().currentUser),
+	currentUser: ref(db, paths().currentUser),
 });
 
-const storeCurrentUserInfoAsync = () =>
-	set(refs().currentUserInfo, getCurrentUserInfo())
-		.then(() => {
-			return getCurrentUserInfo();
-		})
-		.catch((err) => {
-			throw err;
-		});
+const storeCurrentUser = () =>
+	set(refs().currentUser, getCurrentUserInfo())
+		.then(() => currentUserState.set(getCurrentUserInfo()))
+		.catch((err) => console.error(err));
 
-const fetchCurrentUserInfoAsync = () =>
-	get(refs().currentUserInfo)
-		.then((snapshot) => {
-			if (snapshot.exists()) {
-				return snapshot.val();
-			} else {
-				storeCurrentUserInfoAsync()
-					.then((currentUser) => {
-						return currentUser;
-					})
-					.catch((err) => {
-						throw err;
-					});
-			}
-		})
-		.catch((err) => {
-			throw err;
-		});
+const fetchCurrentUser = () =>
+	onValue(refs().currentUser, (snapshot) => {
+		console.log(snapshot.val())
+		if (snapshot.exists()) currentUserState.set(snapshot.val());
+		else storeCurrentUser();
+	})
 
 const fetchAllUsers = () =>
 	onValue(refs().users, (snapshot) => {
@@ -52,4 +36,4 @@ const fetchAllUsers = () =>
 		allUsersState.set(array);
 	});
 
-export { storeCurrentUserInfoAsync, fetchCurrentUserInfoAsync, fetchAllUsers };
+export { storeCurrentUser, fetchCurrentUser, fetchAllUsers };

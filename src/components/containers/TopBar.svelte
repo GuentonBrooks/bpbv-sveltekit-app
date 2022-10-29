@@ -1,18 +1,14 @@
 <script>
   import BpbvPrimaryTransparent from "../../components/image/BpbvPrimaryTransparent.svelte"
-	import { googleSignOutAsync } from "../../firebase/auth";
+	import { googleSignOut } from "../../firebase/auth";
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-	import { userState } from "../../store/user";
+	import { currentUserState } from "../../store/user";
 
   let user;
-  userState.subscribe((currentUserState) => user = currentUserState);
+  currentUserState.subscribe((state) => user = state);
 
-  const signOut = () => {
-    googleSignOutAsync()
-      .then(() => goto('/'))
-      .catch((err) => console.error(err));
-  }
+  const signOut = () => googleSignOut();
 </script>
 
 <nav class="bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">

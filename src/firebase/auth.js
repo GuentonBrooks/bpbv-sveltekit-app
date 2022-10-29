@@ -1,5 +1,6 @@
 import { app } from './app';
 import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from 'firebase/auth';
+import { currentUserState } from '../store/user';
 
 // Initialize Auth Handler
 const auth = getAuth(app);
@@ -7,14 +8,10 @@ const auth = getAuth(app);
 // Google Auth Functions
 const provider = new GoogleAuthProvider();
 const googleSignIn = () => signInWithRedirect(auth, provider);
-const googleSignOutAsync = () =>
+const googleSignOut = () =>
 	signOut(auth)
-		.then(() => {
-			return 'Signed Off';
-		})
-		.catch((err) => {
-			throw err;
-		});
+		.then(() => currentUserState.set(null))
+		.catch((err) => console.error(err));
 
 // Current User Information Functions
 const getCurrentUserId = () => auth.currentUser && auth.currentUser.uid;
@@ -25,4 +22,4 @@ const getCurrentUserInfo = () => ({
 	photoURL: auth.currentUser && auth.currentUser.photoURL,
 });
 
-export { auth, googleSignIn, googleSignOutAsync, getCurrentUserId, getCurrentUserInfo };
+export { auth, googleSignIn, googleSignOut, getCurrentUserId, getCurrentUserInfo };

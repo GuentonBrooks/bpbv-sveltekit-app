@@ -2,7 +2,7 @@ import { db } from './app';
 import { ref, set, get, onValue } from 'firebase/database';
 import { getCurrentUserId, getCurrentUserInfo } from './auth';
 
-import { firstScansState } from '../store/scan';
+import { firstScansState, currentUserFirstScanState } from '../store/scan';
 
 // Document Paths
 const paths = () => ({
@@ -34,34 +34,6 @@ const scanModel = () => ({
 	bodyAge: null,
 });
 
-const initCurrentUserFirstScanAsync = () =>
-	get(refs().currentUserFirstScan)
-		.then((snapshot) => {
-			if (snapshot.exists()) {
-				return snapshot.val();
-			} else {
-				storeCurrentUserFirstScanAsync()
-					.then((model) => {
-						return model;
-					})
-					.catch((err) => {
-						throw err;
-					});
-			}
-		})
-		.catch((err) => {
-			throw err;
-		});
-
-const storeCurrentUserFirstScanAsync = (model = scanModel()) =>
-	set(refs().currentUserFirstScan, model)
-		.then(() => {
-			return model;
-		})
-		.catch((err) => {
-			throw err;
-		});
-
 const storeFirstScanByUidAsync = (uid = null, model = scanModel()) => {
 	if (!uid) {
 		throw new Error('Uid Missing From Request');
@@ -76,6 +48,18 @@ const storeFirstScanByUidAsync = (uid = null, model = scanModel()) => {
 	}
 };
 
+const storeCurrentUserFirstScanAsync = (model = scanModel()) =>
+	set(refs().currentUserFirstScan, model)
+		.then(() => currentUserFirstScanState.set(model))
+		.catch((err) => {
+			throw err;
+		});
+
+const fetchCurrentUserFirstScan = () =>
+	onValue(refs().currentUserFirstScan, (snapshot) => {
+		currentUserFirstScanState.set(snapshot.val());
+	});
+
 const fetchAllUserFirstScans = () =>
 	onValue(refs().firstScan, (snapshot) => {
 		const array = [];
@@ -86,8 +70,8 @@ const fetchAllUserFirstScans = () =>
 
 export {
 	scanModel,
-	initCurrentUserFirstScanAsync,
-	storeCurrentUserFirstScanAsync,
 	storeFirstScanByUidAsync,
+	storeCurrentUserFirstScanAsync,
+	fetchCurrentUserFirstScan,
 	fetchAllUserFirstScans,
 };

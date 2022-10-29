@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from "svelte";
-	import { fetchAllUserFirstScans, initCurrentUserFirstScanAsync } from "../../firebase/firstScan";
+	import { fetchAllUserFirstScans, storeCurrentUserFirstScanAsync } from "../../firebase/firstScan";
 	import { firstScansState, currentUserFirstScanState } from "../../store/scan";
 
   let currentUserFirstScan;
@@ -12,8 +12,7 @@
   onMount(() => {
     if (!currentUserFirstScan) {
       console.log("synchronyzing current user to scan DB...");
-      initCurrentUserFirstScanAsync()
-        .then((scan) => currentUserFirstScanState.set(scan))
+      storeCurrentUserFirstScanAsync()
         .catch((err) => console.error(err))
     }
 
