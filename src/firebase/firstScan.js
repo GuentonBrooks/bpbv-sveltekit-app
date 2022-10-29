@@ -48,12 +48,14 @@ const storeFirstScanByUidAsync = (uid = null, model = scanModel()) => {
 	}
 };
 
-const storeCurrentUserFirstScanAsync = (model = scanModel()) =>
-	set(refs().currentUserFirstScan, model)
-		.then(() => currentUserFirstScanState.set(model))
-		.catch((err) => {
-			throw err;
-		});
+const storeCurrentUserFirstScanAsync = (model = scanModel()) => {
+	if (!model.uid) return console.error('Uid Missing From Request');
+	else {
+		return set(refs().currentUserFirstScan, model)
+			.then(() => currentUserFirstScanState.set(model))
+			.catch((err) => console.log(err));
+	}
+}
 
 const fetchCurrentUserFirstScan = () =>
 	onValue(refs().currentUserFirstScan, (snapshot) => {

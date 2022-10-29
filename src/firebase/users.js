@@ -16,17 +16,25 @@ const refs = () => ({
 	currentUser: ref(db, paths().currentUser),
 });
 
-const storeCurrentUser = () =>
-	set(refs().currentUser, getCurrentUserInfo())
-		.then(() => currentUserState.set(getCurrentUserInfo()))
-		.catch((err) => console.error(err));
+const storeCurrentUser = () => {
+	if (!getCurrentUserId()) return currentUserState.set(null);
+	else {
+		return set(refs().currentUser, getCurrentUserInfo())
+			.then(() => currentUserState.set(getCurrentUserInfo()))
+			.catch((err) => console.error(err));
+	}
+}
 
-const fetchCurrentUser = () =>
-	onValue(refs().currentUser, (snapshot) => {
-		console.log(snapshot.val())
-		if (snapshot.exists()) currentUserState.set(snapshot.val());
-		else storeCurrentUser();
-	})
+const fetchCurrentUser = () => {
+	if (!getCurrentUserId()) return currentUserState.set(null);
+	else {
+		return onValue(refs().currentUser, (snapshot) => {
+			console.log(snapshot.val())
+			if (snapshot.exists()) currentUserState.set(snapshot.val());
+			else storeCurrentUser();
+		})
+	}
+};
 
 const fetchAllUsers = () =>
 	onValue(refs().users, (snapshot) => {

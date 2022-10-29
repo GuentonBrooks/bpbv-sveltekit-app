@@ -10,14 +10,13 @@
   import { currentUserState } from '../store/user'
   
   onMount(() => {
-    onAuthStateChanged(auth, () => fetchCurrentUser());
+    onAuthStateChanged(auth, (user) => user && fetchCurrentUser());
 
     currentUserState.subscribe((userState) => {
-      console.log(userState)
       if (!userState) return goto('/');
+      fetchCurrentUserFirstScan();
     });
 
-    fetchCurrentUserFirstScan();
   });
 
 </script>
