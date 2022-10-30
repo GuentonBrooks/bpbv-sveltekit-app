@@ -29,7 +29,6 @@ const fetchCurrentUser = () => {
 	if (!getCurrentUserId()) return currentUserState.set(null);
 	else {
 		return onValue(refs().currentUser, (snapshot) => {
-			console.log(snapshot.val())
 			if (snapshot.exists()) currentUserState.set(snapshot.val());
 			else storeCurrentUser();
 		})

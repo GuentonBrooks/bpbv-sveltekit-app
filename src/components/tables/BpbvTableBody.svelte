@@ -1,6 +1,6 @@
 <script>
 	import { getCurrentUserId } from "../../firebase/auth";
-	import { scanModel, storeCurrentUserFirstScanAsync } from "../../firebase/firstScan";
+	import { currentUserScanModel, storeCurrentUserFirstScan } from "../../firebase/firstScan";
 	import { firstScansState } from "../../store/scan";
 
   let firstScans;
@@ -12,14 +12,13 @@
   let sex;
 
   const update = (scan) => {
-    const scanUpdate = { ...scanModel(), ...scan };
+    const scanUpdate = { ...currentUserScanModel(), ...scan };
     if (displayName) scanUpdate.displayName = displayName;
     if (age) scanUpdate.age = age;
     if (sex) scanUpdate.sex = sex;
 
-    storeCurrentUserFirstScanAsync(scanUpdate)
+    storeCurrentUserFirstScan(scanUpdate)
       .then(() => console.log("stored"))
-      .catch((err) => console.error(err))
   };
 </script>
 

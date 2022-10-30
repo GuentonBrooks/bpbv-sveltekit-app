@@ -1,5 +1,5 @@
 <script>
-	import { scanModel, storeFirstScanByUidAsync } from "../../firebase/firstScan";
+	import { scanModel, storeFirstScanByUid } from "../../firebase/firstScan";
 	import { selectedUserFirstScanState } from "../../store/scan";
 	import UserSelectDropdown from "./UserSelectDropdown.svelte";
 
@@ -32,9 +32,8 @@
     if (bodyAge) scanUpdate.bodyAge = bodyAge;
     if (advice) scanUpdate.advice = advice;
 
-    storeFirstScanByUidAsync(scan.uid, scanUpdate)
+    storeFirstScanByUid(scan.uid, scanUpdate)
       .then(() => console.log("stored"))
-      .catch((err) => console.error(err))
   };
 </script>
 
