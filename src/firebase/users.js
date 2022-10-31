@@ -1,5 +1,5 @@
 import { db } from './app';
-import { ref, set, get, onValue } from 'firebase/database';
+import { ref, set, onValue } from 'firebase/database';
 import { getCurrentUserId, getCurrentUserInfo } from './auth';
 
 import { allUsersState, currentUserState } from '../store/user';
@@ -19,24 +19,22 @@ const refs = () => ({
 
 const storeCurrentUser = () => {
 	if (!getCurrentUserId()) return currentUserState.set(null);
-	else {
-		return set(refs().currentUser, getCurrentUserInfo())
-			.then(() => {
-				currentUserState.set(getCurrentUserInfo());
-				successAlertState.set("Current User Successfully Stored in Database");
-			})
-			.catch((err) => errorAlertState.set(err));
-	}
-}
+
+	return set(refs().currentUser, getCurrentUserInfo())
+		.then(() => {
+			currentUserState.set(getCurrentUserInfo());
+			successAlertState.set('Current User Successfully Stored in Database');
+		})
+		.catch((err) => errorAlertState.set(err));
+};
 
 const fetchCurrentUser = () => {
 	if (!getCurrentUserId()) return currentUserState.set(null);
-	else {
-		return onValue(refs().currentUser, (snapshot) => {
-			if (snapshot.exists()) currentUserState.set(snapshot.val());
-			else storeCurrentUser();
-		})
-	}
+
+	return onValue(refs().currentUser, (snapshot) => {
+		if (snapshot.exists()) currentUserState.set(snapshot.val());
+		else storeCurrentUser();
+	});
 };
 
 const fetchAllUsers = () =>

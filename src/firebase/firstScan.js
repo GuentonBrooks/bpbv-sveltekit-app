@@ -2,7 +2,11 @@ import { db } from './app';
 import { ref, set, onValue } from 'firebase/database';
 import { getCurrentUserId, getCurrentUserInfo } from './auth';
 
-import { firstScansState, currentUserFirstScanState, selectedUserFirstScanState } from '../store/scan';
+import {
+	firstScansState,
+	currentUserFirstScanState,
+	selectedUserFirstScanState,
+} from '../store/scan';
 import { errorAlertState, successAlertState } from '../store/alert';
 
 // Document Paths
@@ -41,7 +45,7 @@ const storeFirstScanByUid = (uid = null, model = scanModel()) => {
 	return set(refs(uid).firstScan, model)
 		.then(() => {
 			selectedUserFirstScanState.set(model);
-			successAlertState.set("Update Successfully Stored!");
+			successAlertState.set('Update Successfully Stored!');
 		})
 		.catch((err) => errorAlertState.set(err));
 };
@@ -51,22 +55,23 @@ const storeCurrentUserFirstScan = (model = scanModel()) => {
 	if (!model.photoURL) model.photoURL = getCurrentUserInfo().photoURL;
 	if (!model.displayName) model.displayName = getCurrentUserInfo().displayName;
 	if (!model.email) model.email = getCurrentUserInfo().email;
-	
+
 	return set(refs().currentUserFirstScan, model)
 		.then(() => {
 			currentUserFirstScanState.set(model);
-			successAlertState.set("Update Successfully Stored!");
+			successAlertState.set('Update Successfully Stored!');
 		})
 		.catch((err) => errorAlertState.set(err));
-}
+};
 
 const fetchCurrentUserFirstScan = () => {
 	if (!getCurrentUserId()) return currentUserFirstScanState.set(null);
-	else return	onValue(refs().currentUserFirstScan, (snapshot) => {
+
+	return onValue(refs().currentUserFirstScan, (snapshot) => {
 		if (snapshot.exists()) currentUserFirstScanState.set(snapshot.val());
 		else storeCurrentUserFirstScan();
 	});
-}
+};
 
 const fetchAllUserFirstScans = () =>
 	onValue(refs().firstScan, (snapshot) => {
