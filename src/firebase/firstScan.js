@@ -52,6 +52,7 @@ const storeFirstScanByUid = (uid = null, model = scanModel()) => {
 
 const storeCurrentUserFirstScan = (model = scanModel()) => {
 	if (!getCurrentUserId()) return errorAlertState.set('Could not save to DB without a Unique ID');
+	if (!model.uid) model.uid = getCurrentUserId();
 	if (!model.photoURL) model.photoURL = getCurrentUserInfo().photoURL;
 	if (!model.displayName) model.displayName = getCurrentUserInfo().displayName;
 	if (!model.email) model.email = getCurrentUserInfo().email;

@@ -7,6 +7,13 @@
   let user;
   currentUserState.subscribe((state) => user = state);
 
+  const isAdmin = () => {
+    if (!user) return false;
+    if (user.email === "rachnablom@gmail.com") return true;
+    if (user.email === "guenton@gmail.com") return true;
+
+    return false;
+  }
   const signOut = () => googleSignOut();
 </script>
 
@@ -37,7 +44,7 @@
       <li>
         <a href="mailto:rachnablom@gmail.com" class="block py-2 pr-4 pl-3 {$page.routeId === "/contact" ? "text-primary font-bold" : "text-gray-700"} rounded md:hover:text-blue-700 md:p-0 ">Contact</a>
       </li>
-      {#if user && user.email === "guenton@gmail.com" || "rachnablom@gmail.com"}
+      {#if isAdmin()}
         <li>
           <a href="/admin" class="block py-2 pr-4 pl-3 {$page.routeId === "/admin" ? "text-primary font-bold" : "text-gray-700"} rounded md:hover:text-blue-700 md:p-0 ">Admin</a>
         </li>
