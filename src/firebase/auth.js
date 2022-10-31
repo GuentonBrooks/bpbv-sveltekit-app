@@ -1,6 +1,7 @@
 import { app } from './app';
 import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from 'firebase/auth';
 import { currentUserState } from '../store/user';
+import { errorAlertState } from '../store/alert';
 
 // Initialize Auth Handler
 const auth = getAuth(app);
@@ -11,7 +12,7 @@ const googleSignIn = () => signInWithRedirect(auth, provider);
 const googleSignOut = () =>
 	signOut(auth)
 		.then(() => currentUserState.set(null))
-		.catch((err) => console.error(err));
+		.catch((err) => errorAlertState.set(err));
 
 // Current User Information Functions
 const getCurrentUserId = () => auth.currentUser && auth.currentUser.uid;

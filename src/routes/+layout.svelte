@@ -12,8 +12,8 @@
   onMount(() => {
     onAuthStateChanged(auth, (user) => user && fetchCurrentUser());
 
-    currentUserState.subscribe((userState) => {
-      if (!userState) return goto('/');
+    currentUserState.subscribe((state) => {
+      if (!state) return goto('/');
       fetchCurrentUserFirstScan();
     });
 

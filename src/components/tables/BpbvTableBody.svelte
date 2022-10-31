@@ -1,24 +1,25 @@
 <script>
 	import { getCurrentUserId } from "../../firebase/auth";
-	import { currentUserScanModel, storeCurrentUserFirstScan } from "../../firebase/firstScan";
-	import { firstScansState } from "../../store/scan";
+	import { scanModel, storeCurrentUserFirstScan } from "../../firebase/firstScan";
+	import { firstScansState, currentUserFirstScanState } from "../../store/scan";
 
   let firstScans;
+  let currentUserFirstScan;
   firstScansState.subscribe((scans) => scans ? firstScans = scans : firstScans = []);
+  currentUserFirstScanState.subscribe((state) => currentUserFirstScan = state);
   
   let uid = getCurrentUserId();
   let displayName;
   let age;
   let sex;
 
-  const update = (scan) => {
-    const scanUpdate = { ...currentUserScanModel(), ...scan };
+  const update = () => {
+    const scanUpdate = { ...scanModel(), ...currentUserFirstScan };
     if (displayName) scanUpdate.displayName = displayName;
     if (age) scanUpdate.age = age;
     if (sex) scanUpdate.sex = sex;
 
-    storeCurrentUserFirstScan(scanUpdate)
-      .then(() => console.log("stored"))
+    storeCurrentUserFirstScan(scanUpdate);
   };
 </script>
 
@@ -41,24 +42,24 @@
     </td>
 
     <td class="p-2 whitespace-nowrap">
-      {#if scan.age}
+      {#if scan.uid === uid}
+        <input type="text" name="age" class="w-12 text-lg text-left" placeholder={scan.age} bind:value={age}>
+      {:else if scan.age}
         <div class="text-left">{scan.age}</div>
-      {:else if scan.uid === uid}
-        <input type="text" name="age" class="w-12 text-lg text-left" placeholder="??" bind:value={age}>
       {:else}
-        <div class="text-left">?</div>
+        <div class="text-left">??</div>
       {/if}
     </td>
 
     <td class="p-2 whitespace-nowrap">
-      {#if scan.sex && scan.sex.startsWith("F")}
-        <div class="w-12 text-lg text-center font-medium text-pink-500">F</div>
+      {#if scan.uid === uid}
+        <input type="text" name="age" class="w-12 hover:border-primary text-lg text-center" placeholder={scan.sex || "?"} bind:value={sex}>
       {:else if scan.sex && scan.sex.startsWith("F")}
+        <div class="w-12 text-lg text-center font-medium text-pink-500">F</div>
+      {:else if scan.sex && scan.sex.startsWith("V")}
         <div class="w-12 text-lg text-center font-medium text-pink-500">F</div>
       {:else if scan.sex && scan.sex.startsWith("M")}
         <div class="w-12 text-lg text-center font-medium text-blue-500">M</div>
-      {:else if scan.uid === uid}
-        <input type="text" name="age" class="w-12 hover:border-primary text-lg text-center" placeholder={scan.sex || "?"} bind:value={sex}>
       {:else}
         <div class="w-12 text-lg text-center font-medium text-grey-500">?</div>
       {/if}
@@ -90,7 +91,7 @@
     </td>
     
     {#if scan.uid === uid}
-      <button on:click={(scan) => update(scan)} type="button" class="text-white bg-primary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-primary dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
+      <button on:click={() => update()} type="button" class="text-white bg-primary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-primary dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
     {/if}
   </tr>
 	{/each}

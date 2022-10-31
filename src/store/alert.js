@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
-const infoAlert = writable(null);
-const successAlert = writable(null);
-const errorAlert = writable(null);
+const infoAlertState = writable(null);
+const successAlertState = writable(null);
+const errorAlertState = writable(null);
 
-export { infoAlert, successAlert, errorAlert };
+export { infoAlertState, successAlertState, errorAlertState };

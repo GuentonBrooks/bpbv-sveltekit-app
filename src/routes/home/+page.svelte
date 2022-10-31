@@ -5,5 +5,5 @@
 </script>
 
 <TopBar />
-<!-- <FlatAlert /> -->
+<FlatAlert />
 <BpbvTable />

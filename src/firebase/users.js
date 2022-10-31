@@ -3,6 +3,7 @@ import { ref, set, get, onValue } from 'firebase/database';
 import { getCurrentUserId, getCurrentUserInfo } from './auth';
 
 import { allUsersState, currentUserState } from '../store/user';
+import { errorAlertState, successAlertState } from '../store/alert';
 
 // Document Paths
 const paths = () => ({
@@ -20,8 +21,11 @@ const storeCurrentUser = () => {
 	if (!getCurrentUserId()) return currentUserState.set(null);
 	else {
 		return set(refs().currentUser, getCurrentUserInfo())
-			.then(() => currentUserState.set(getCurrentUserInfo()))
-			.catch((err) => console.error(err));
+			.then(() => {
+				currentUserState.set(getCurrentUserInfo());
+				successAlertState.set("Current User Successfully Stored in Database");
+			})
+			.catch((err) => errorAlertState.set(err));
 	}
 }
 

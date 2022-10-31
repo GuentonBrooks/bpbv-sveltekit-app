@@ -1,8 +1,9 @@
 import { db } from './app';
-import { ref, set, get, onValue } from 'firebase/database';
+import { ref, set, onValue } from 'firebase/database';
 import { getCurrentUserId, getCurrentUserInfo } from './auth';
 
 import { firstScansState, currentUserFirstScanState, selectedUserFirstScanState } from '../store/scan';
+import { errorAlertState, successAlertState } from '../store/alert';
 
 // Document Paths
 const paths = () => ({
@@ -34,30 +35,29 @@ const scanModel = () => ({
 	bodyAge: null,
 });
 
-const currentUserScanModel = () => ({
-	...scanModel,
-	uid: getCurrentUserInfo().uid,
-	photoURL: getCurrentUserInfo().photoURL,
-	displayName: getCurrentUserInfo().displayName,
-	email: getCurrentUserInfo().email,
-})
-
 const storeFirstScanByUid = (uid = null, model = scanModel()) => {
-	if (!uid) return console.error('Uid Missing From Request');
-	else {
-		return set(refs(uid).firstScan, model)
-			.then(() => selectedUserFirstScanState.set(model))
-			.catch((err) => console.error(err));
-	}
+	if (!uid) return errorAlertState.set('Could not save to DB without a Unique ID');
+
+	return set(refs(uid).firstScan, model)
+		.then(() => {
+			selectedUserFirstScanState.set(model);
+			successAlertState.set("Update Successfully Stored!");
+		})
+		.catch((err) => errorAlertState.set(err));
 };
 
-const storeCurrentUserFirstScan = (model = currentUserScanModel()) => {
-	if (!model.uid) return console.error('Uid Missing From Request');
-	else {
-		return set(refs().currentUserFirstScan, model)
-			.then(() => currentUserFirstScanState.set(model))
-			.catch((err) => console.error(err));
-	}
+const storeCurrentUserFirstScan = (model = scanModel()) => {
+	if (!getCurrentUserId()) return errorAlertState.set('Could not save to DB without a Unique ID');
+	if (!model.photoURL) model.photoURL = getCurrentUserInfo().photoURL;
+	if (!model.displayName) model.displayName = getCurrentUserInfo().displayName;
+	if (!model.email) model.email = getCurrentUserInfo().email;
+	
+	return set(refs().currentUserFirstScan, model)
+		.then(() => {
+			currentUserFirstScanState.set(model);
+			successAlertState.set("Update Successfully Stored!");
+		})
+		.catch((err) => errorAlertState.set(err));
 }
 
 const fetchCurrentUserFirstScan = () => {
@@ -78,7 +78,6 @@ const fetchAllUserFirstScans = () =>
 
 export {
 	scanModel,
-	currentUserScanModel,
 	storeFirstScanByUid,
 	storeCurrentUserFirstScan,
 	fetchCurrentUserFirstScan,
