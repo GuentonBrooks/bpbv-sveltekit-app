@@ -1,11 +1,11 @@
 <script>
 	import { onMount } from "svelte";
-	import { fetchAllUserFirstScans, fetchCurrentUserFirstScan } from "../../firebase/firstScan";
-	import { firstScansState, currentUserFirstScanState } from "../../store/scan";
+	import { fetchAllUserFinalScans, fetchCurrentUserFinalScan } from "../../firebase/finalScan";
+	import { finalScansState, currentUserFinalScanState } from "../../store/scan";
   
   onMount(() => {
-    currentUserFirstScanState.subscribe((state) => !state && fetchCurrentUserFirstScan())
-    firstScansState.subscribe((state) => !state && fetchAllUserFirstScans());
+    currentUserFinalScanState.subscribe((state) => !state && fetchCurrentUserFinalScan())
+    finalScansState.subscribe((state) => !state && fetchAllUserFinalScans());
   });
 </script>
 

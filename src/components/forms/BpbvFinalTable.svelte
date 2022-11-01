@@ -1,5 +1,5 @@
 <script>
-	import BpbvTableBody from "../tables/BpbvTableBody.svelte";
+	import BpbvFinalTableBody from "../tables/BpbvFinalTableBody.svelte";
   import BpbvTableHead from "../tables/BpbvTableHead.svelte";
 </script>
 
@@ -17,7 +17,7 @@
             <div class="overflow-x-auto">
                 <table class="table-auto w-full">
                     <BpbvTableHead />
-                    <BpbvTableBody />
+                    <BpbvFinalTableBody />
                 </table>
             </div>
         </div>
