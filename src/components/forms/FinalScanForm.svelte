@@ -1,10 +1,10 @@
 <script>
-	import { scanModel, storeFirstScanByUid } from "../../firebase/firstScan";
-	import { selectedUserFirstScanState } from "../../store/scan";
-	import UserSelectFirstDropdown from "./UserSelectFirstDropdown.svelte";
+	import { scanModel, storeFinalScanByUid } from "../../firebase/finalScan";
+	import { selectedUserFinalScanState } from "../../store/scan";
+	import UserSelectFinalDropdown from "./UserSelectFinalDropdown.svelte";
 
   let selectedUser;
-  selectedUserFirstScanState.subscribe((scanState) => selectedUser = scanState);
+  selectedUserFinalScanState.subscribe((scanState) => selectedUser = scanState);
 
   let age;
   let sex;
@@ -32,7 +32,7 @@
     if (bodyAge) scanUpdate.bodyAge = bodyAge;
     if (advice) scanUpdate.advice = advice;
 
-    storeFirstScanByUid(scan.uid, scanUpdate)
+    storeFinalScanByUid(scan.uid, scanUpdate)
       .then(() => console.log("stored"))
   };
 </script>
@@ -47,7 +47,7 @@
           <h3 class="text-lg font-medium leading-6 text-gray-900">Personal Information</h3>
           <p class="mt-1 text-sm text-gray-600">Please Handle personal employee information with care.</p>
         </div>
-        <UserSelectFirstDropdown />
+        <UserSelectFinalDropdown />
 
         {#if selectedUser}
         <div class="grid grid-cols-3">
@@ -160,7 +160,7 @@
     <div class="md:grid md:grid-cols-3 md:gap-6">
       <div class="md:col-span-1">
         <div class="px-4 sm:px-0">
-          <h3 class="mt-5 text-lg font-medium leading-6 text-gray-900">First Scan Advice (Optional)</h3>
+          <h3 class="mt-5 text-lg font-medium leading-6 text-gray-900">Final Scan Advice (Optional)</h3>
           <p class="mt-1 text-sm text-gray-600">Optionally health advice can be recorded for each employee</p>
         </div>
       </div>
